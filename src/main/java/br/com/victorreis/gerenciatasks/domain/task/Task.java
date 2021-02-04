@@ -8,6 +8,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.FutureOrPresent;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.Length;
 
 import br.com.victorreis.gerenciatasks.domain.user.AppUser;
 
@@ -17,14 +22,19 @@ public class Task {
 	@Id
 	private Integer id;
 	
+	@NotBlank(message = "A descrição da tarefa é obrigatória")
+	@Length(min = 3, max = 40, message = "O tamanho da tarefa é inválido")
 	private String descricao;
 	
+	@NotNull(message = "A data da tarefa é obrigatória")
+	@FutureOrPresent(message ="A data da tarefa não pode estar no passado" )
 	private LocalDate efetuarEm;
 	
 	private Boolean feita = false;
 	
 	@ManyToOne
 	@JoinColumn(name = "app_user_id")
+	@NotNull(message = "O usuário da tarefa é obrigatório")
 	private AppUser appUser;
 
 	public Task() {
