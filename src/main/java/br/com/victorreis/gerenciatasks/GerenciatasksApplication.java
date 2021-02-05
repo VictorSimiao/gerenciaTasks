@@ -20,6 +20,10 @@ public class GerenciatasksApplication  implements RepositoryRestConfigurer{
 	@Override
 	public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config) {
 		config.exposeIdsFor(Task.class);
+		config.getCorsRegistry()
+		.addMapping("/**")
+		.allowedOrigins("*")
+		.allowedMethods("GET","POST","PUT","DELETE");
 	}
 
 	@Bean
