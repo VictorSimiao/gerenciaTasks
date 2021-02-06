@@ -5,6 +5,8 @@ import java.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import br.com.victorreis.gerenciatasks.domain.task.Task;
@@ -26,10 +28,13 @@ public class InsertTestData {
 	
 	@EventListener
 	public void onApplicationEvent(ContextRefreshedEvent event) {
-		AppUser appUser1 = new AppUser("john", "abc", "John Coder");
+		
+		PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
+		
+		AppUser appUser1 = new AppUser("john", encoder.encode("abc"), "John Coder");
 		appUSerRepository.save(appUser1);
 		
-		AppUser appUser2 = new AppUser("paul", "cba", "Paul JDev");
+		AppUser appUser2 = new AppUser("paul", encoder.encode("cba"), "Paul JDev");
 		appUSerRepository.save(appUser2);
 		
 		LocalDate baseDate = LocalDate.parse("2025-02-01");
