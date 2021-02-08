@@ -15,6 +15,8 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import br.com.victorreis.gerenciatasks.domain.user.AppUser;
 
 @Entity
@@ -36,7 +38,7 @@ public class Task {
 	
 	@ManyToOne
 	@JoinColumn(name = "app_user_id")
-	
+	@JsonIgnore
 	private AppUser appUser;
 
 	public Task() {
