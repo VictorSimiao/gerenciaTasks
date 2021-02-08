@@ -3,6 +3,7 @@ package br.com.victorreis.gerenciatasks.domain.task;
 import java.time.LocalDate;
 
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -17,6 +18,7 @@ import org.hibernate.validator.constraints.Length;
 import br.com.victorreis.gerenciatasks.domain.user.AppUser;
 
 @Entity
+@EntityListeners(TaskListener.class)
 public class Task {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id
@@ -34,7 +36,7 @@ public class Task {
 	
 	@ManyToOne
 	@JoinColumn(name = "app_user_id")
-	@NotNull(message = "O usuário da tarefa é obrigatório")
+	
 	private AppUser appUser;
 
 	public Task() {
